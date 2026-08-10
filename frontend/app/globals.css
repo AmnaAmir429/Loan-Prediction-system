@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: #004ac6;
+    --primary-container: #2563eb;
+    --primary-fixed: #dbe1ff;
+    --on-primary: #ffffff;
+    --on-primary-container: #eeefff;
+
+    --background: #f8f9ff;
+    --on-background: #0d1c2f;
+
+    --surface: #f8f9ff;
+    --surface-dim: #ccdbf4;
+    --surface-bright: #f8f9ff;
+    --surface-container-lowest: #ffffff;
+    --surface-container-low: #eff4ff;
+    --surface-container: #e6eeff;
+    --surface-container-high: #dde9ff;
+    --surface-container-highest: #d5e3fd;
+    --surface-variant: #d5e3fd;
+
+    --on-surface: #0d1c2f;
+    --on-surface-variant: #434655;
+    --outline: #737686;
+    --outline-variant: #c3c6d7;
+
+    --error: #ba1a1a;
+    --error-container: #ffdad6;
+    --on-error: #ffffff;
+    --on-error-container: #93000a;
+  }
+
+  .dark {
+    --primary: #b4c5ff;
+    --primary-container: #2563eb;
+    --primary-fixed: #dbe1ff;
+    --on-primary: #002a78;
+    --on-primary-container: #eeefff;
+
+    --background: #0b1326;
+    --on-background: #dae2fd;
+
+    --surface: #0b1326;
+    --surface-dim: #0b1326;
+    --surface-bright: #31394d;
+    --surface-container-lowest: #060e20;
+    --surface-container-low: #131b2e;
+    --surface-container: #171f33;
+    --surface-container-high: #222a3d;
+    --surface-container-highest: #2d3449;
+    --surface-variant: #2d3449;
+
+    --on-surface: #dae2fd;
+    --on-surface-variant: #c3c6d7;
+    --outline: #8d90a0;
+    --outline-variant: #434655;
+
+    --error: #ffb4ab;
+    --error-container: #93000a;
+    --on-error: #690005;
+    --on-error-container: #ffdad6;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--on-background);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass-card {
+  background: rgba(13, 19, 38, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom gauge animation */
+.circle-progress {
+  transition: stroke-dashoffset 1.2s ease-in-out;
+}

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Loan Predictor Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#b4c5ff",
+                        "tertiary-container": "#0f69dc",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "surface-container": "#e6eeff",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#dce3ec",
+                        "on-tertiary-container": "#edf0ff",
+                        "on-primary-container": "#eeefff",
+                        "outline": "#737686",
+                        "inverse-on-surface": "#ebf1ff",
+                        "on-secondary-fixed-variant": "#40484f",
+                        "tertiary": "#0051b1",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#5e656d",
+                        "surface-container-low": "#eff4ff",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "outline-variant": "#c3c6d7",
+                        "surface-variant": "#d5e3fd",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "surface-bright": "#f8f9ff",
+                        "secondary": "#585f67",
+                        "tertiary-fixed": "#d8e2ff",
+                        "on-surface-variant": "#434655",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#233144",
+                        "surface": "#f8f9ff",
+                        "secondary-fixed-dim": "#c0c7d0",
+                        "on-surface": "#0d1c2f",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#dbe1ff",
+                        "on-secondary-fixed": "#151c23",
+                        "surface-container-highest": "#d5e3fd",
+                        "on-background": "#0d1c2f",
+                        "on-primary-fixed": "#00174b",
+                        "secondary-fixed": "#dce3ec",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#ccdbf4",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#dde9ff",
+                        "on-tertiary-fixed": "#001a42",
+                        "primary": "#004ac6",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "background": "#f8f9ff",
+                        "primary-container": "#2563eb",
+                        "surface-tint": "#0053db"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "1rem",
+                        "stack-lg": "2rem",
+                        "gutter": "1.5rem",
+                        "container-max": "1280px",
+                        "stack-md": "1rem",
+                        "margin-desktop": "2.5rem",
+                        "stack-sm": "0.5rem"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-white to-surface-container-low min-h-screen text-on-surface font-body-md">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-xl shadow-xl shadow-primary/5 fixed top-0 w-full z-50 border-b border-white/10 dark:border-white/5 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="account_balance">account_balance</span>
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">FinTech Predict</span>
+</div>
+<div>
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a corporate user in a modern office setting. The lighting is soft and bright, reflecting a sophisticated corporate identity. The individual appears confident and approachble, aligning with a premium fintech interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADLr2TW6xefGjJTubIGFtzmma6_iogQeXjqEuC6Is6MVAchlBAdCzcrYpDxmxHWH_lvlQGaRFgVryEKTlueWLwqvHTp51d651N_TtS5A0bTwVTomCHYOwn5nFbH78h9NHGy459GvISej9mT-pd0VP805N3sAk6yu4oueu18yRUA6xaOtgcay_7FZX_jDKMYo3zOI85hTfpD3oSTrk4JkZ_fmWa7DPmhU2-C0vmRLVGmSv2MutRf6CZZg"/>
+</div>
+</div>
+</header>
+<div class="flex pt-16 h-screen">
+<!-- NavigationDrawer (Desktop) -->
+<aside class="hidden md:flex flex-col py-6 bg-surface dark:bg-inverse-surface h-full w-72 rounded-r-xl shadow-xl border-r border-white/10 shrink-0">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-4 mb-2">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a corporate user in a modern office setting. Soft lighting, sophisticated corporate identity, confident and approachable, aligning with a premium fintech interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu8zC2OSBRDGK6cyvyg6z6gtL42X0UoEhyvNtDq9x3I2wHPeiQ5I55Pq02MktDoV7KTy9lrn9J39tChR865wBN_FNVl5IezAFj91hqIvbiEsIokidGTLJ7OR1fZtaBqtt8aaZ8mBPD27bgDDxFP3PIg4SHuPzy7bu4FWF9R0jT21vwqVCLU1Y1mRcaA56WwjGiR04KLLt5xO6R_Fjj4Ycxm2j2XexYrkkTsSbo_pZO3ujVT9qEOUNl8g"/>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface font-bold">Premium Member</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Fintech Analyst</div>
+</div>
+</div>
+<div class="font-label-sm text-label-sm text-outline-variant text-right">v1.2.4</div>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 bg-primary-container text-on-primary-container rounded-full mx-2 font-label-md text-label-md transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                    My Applications
+                </a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant dark:text-outline-variant rounded-full mx-2 font-label-md text-label-md hover:bg-surface-variant/50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="online_prediction">online_prediction</span>
+                    Loan Predictor
+                </a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant dark:text-outline-variant rounded-full mx-2 font-label-md text-label-md hover:bg-surface-variant/50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                    Analytics
+                </a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant dark:text-outline-variant rounded-full mx-2 font-label-md text-label-md hover:bg-surface-variant/50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+                    Support
+                </a>
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto p-margin-mobile md:p-margin-desktop">
+<div class="max-w-container-max mx-auto">
+<header class="mb-stack-lg">
+<h1 class="font-display-lg text-headline-lg-mobile md:text-display-lg text-on-background mb-2">My Applications</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Overview of your recent loan prediction statuses.</p>
+</header>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-stack-lg">
+<!-- Summary Cards (Bento Grid Style) -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<div class="glass-card rounded-xl p-6 shadow-xl shadow-primary/5 flex items-center justify-between border-l-4 border-l-primary">
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Approved</div>
+<div class="font-headline-md text-headline-md text-on-surface">12</div>
+</div>
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+</div>
+</div>
+<div class="glass-card rounded-xl p-6 shadow-xl shadow-primary/5 flex items-center justify-between border-l-4 border-l-tertiary-container">
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Pending</div>
+<div class="font-headline-md text-headline-md text-on-surface">5</div>
+</div>
+<div class="w-12 h-12 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary-container">
+<span class="material-symbols-outlined" data-icon="hourglass_empty">hourglass_empty</span>
+</div>
+</div>
+<div class="glass-card rounded-xl p-6 shadow-xl shadow-primary/5 flex items-center justify-between border-l-4 border-l-error">
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Rejected</div>
+<div class="font-headline-md text-headline-md text-on-surface">2</div>
+</div>
+<div class="w-12 h-12 rounded-full bg-error-container flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined" data-icon="cancel">cancel</span>
+</div>
+</div>
+</div>
+<!-- Chart Card -->
+<div class="md:col-span-8 glass-card rounded-xl p-6 shadow-xl shadow-primary/5">
+<h2 class="font-headline-md text-headline-md text-on-background mb-4">Loan Amount Trends</h2>
+<div class="w-full h-64 bg-surface-variant/30 rounded-lg border border-outline-variant/30 flex items-center justify-center">
+<!-- Placeholder for chart, in a real app this would be a Canvas/SVG -->
+<span class="text-on-surface-variant font-label-md text-label-md flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="show_chart">show_chart</span>
+                                Chart Data Visualization Area
+                            </span>
+</div>
+</div>
+</div>
+<!-- Recent Activity List -->
+<section class="glass-card rounded-xl shadow-xl shadow-primary/5 overflow-hidden">
+<div class="p-6 border-b border-outline-variant/30 bg-surface/50">
+<h2 class="font-headline-md text-headline-md text-on-background">Recent Activity</h2>
+</div>
+<div class="divide-y divide-outline-variant/20">
+<!-- Activity Item 1 -->
+<div class="p-4 md:p-6 flex items-center justify-between hover:bg-surface-variant/20 transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="home_work">home_work</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface font-semibold">Mortgage Application</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">ID: APP-9823 • 2 hours ago</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-body-md text-body-md font-semibold text-on-surface">$450,000</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary-container/20 text-primary">Approved</span>
+</div>
+</div>
+<!-- Activity Item 2 -->
+<div class="p-4 md:p-6 flex items-center justify-between hover:bg-surface-variant/20 transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/10 flex items-center justify-center text-tertiary-container">
+<span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface font-semibold">Auto Loan</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">ID: APP-9822 • 1 day ago</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-body-md text-body-md font-semibold text-on-surface">$35,000</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-tertiary-container/20 text-tertiary-container">Pending</span>
+</div>
+</div>
+<!-- Activity Item 3 -->
+<div class="p-4 md:p-6 flex items-center justify-between hover:bg-surface-variant/20 transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="credit_card">credit_card</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface font-semibold">Personal Loan</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">ID: APP-9810 • 3 days ago</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-body-md text-body-md font-semibold text-on-surface">$10,000</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-surface-variant text-on-surface-variant">Closed</span>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-outline-variant/30 text-center">
+<button class="font-label-md text-label-md text-primary hover:text-tertiary transition-colors font-medium">View All Activity</button>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/90 dark:bg-inverse-surface/90 backdrop-blur-md border-t border-white/10 shadow-xl flex justify-around items-center h-16 pb-safe">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary dark:hover:text-inverse-primary active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="online_prediction">online_prediction</span>
+<span class="font-label-sm text-label-sm">Predict</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container/20 text-primary dark:text-inverse-primary rounded-xl px-4 py-1 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="history" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-label-sm text-label-sm font-bold">History</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary dark:hover:text-inverse-primary active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="query_stats">query_stats</span>
+<span class="font-label-sm text-label-sm">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary dark:hover:text-inverse-primary active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="help_center">help_center</span>
+<span class="font-label-sm text-label-sm">Help</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,36 @@
+{
+  "feature_cols": [
+    "Gender",
+    "Married",
+    "Dependents",
+    "Education",
+    "Self_Employed",
+    "ApplicantIncome",
+    "CoapplicantIncome",
+    "LoanAmount",
+    "Loan_Amount_Term",
+    "Credit_History",
+    "Property_Area"
+  ],
+  "cat_cols": [
+    "Gender",
+    "Married",
+    "Dependents",
+    "Education",
+    "Self_Employed",
+    "Property_Area"
+  ],
+  "num_cols": [
+    "ApplicantIncome",
+    "CoapplicantIncome",
+    "LoanAmount",
+    "Loan_Amount_Term",
+    "Credit_History"
+  ],
+  "best_k": 15,
+  "accuracy": 0.8536585365853658,
+  "target_mapping": {
+    "N": 0,
+    "Y": 1
+  }
+}
