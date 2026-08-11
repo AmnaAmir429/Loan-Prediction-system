@@ -2,6 +2,7 @@ import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
 import { PredictionForm } from "@/components/prediction-form";
 import { Features } from "@/components/features";
+import { HowItWorks } from "@/components/how-it-works";
 import { Activity } from "lucide-react";
 
 export default function HomePage() {
@@ -13,6 +14,7 @@ export default function HomePage() {
         <Hero />
         <PredictionForm />
         <Features />
+        <HowItWorks />
       </main>
 
       <footer className="w-full py-10 bg-surface-container-low dark:bg-surface-container-highest/60 border-t border-outline-variant/30 mt-auto transition-colors duration-300">
@@ -35,6 +37,9 @@ export default function HomePage() {
             </a>
             <a href="#features" className="hover:text-primary transition-colors">
               Capabilities
+            </a>
+            <a href="#how-it-works" className="hover:text-primary transition-colors">
+              How It Works
             </a>
             <span className="text-outline/50">•</span>
             <span>FastAPI + Next.js 15</span>
