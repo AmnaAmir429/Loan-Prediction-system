@@ -1,0 +1,9 @@
+{
+  "extraPaths": [
+    "C:/Users/aamir/AppData/Local/Programs/Python/Python312/Lib/site-packages",
+    "C:/Users/aamir/AppData/Roaming/Python/Python312/site-packages",
+    "./backend"
+  ],
+  "reportMissingImports": false,
+  "reportMissingModuleSource": false
+}
