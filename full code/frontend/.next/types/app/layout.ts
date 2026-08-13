@@ -1,4 +1,4 @@
-// File: C:\Users\aamir\OneDrive\Documents\Loan Prediction\frontend\app\layout.tsx
+// File: C:\Users\aamir\OneDrive\Documents\Loan Prediction\full code\frontend\app\layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
