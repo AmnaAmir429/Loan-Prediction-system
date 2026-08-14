@@ -1,11 +1,7 @@
 import os
-import sys
-user_site = os.path.expanduser(r"~\AppData\Roaming\Python\Python312\site-packages")
-if os.path.exists(user_site) and user_site not in sys.path:
-    sys.path.insert(0, user_site)
-
 import json
 import joblib
+from contextlib import asynccontextmanager
 
 import pandas as pd
 import numpy as np
@@ -13,22 +9,6 @@ from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import Dict, Any
-
-# FastAPI App Instance
-app = FastAPI(
-    title="Loan Approval Prediction API",
-    description="Production-ready REST API for ML KNN Loan Approval Prediction",
-    version="1.0.0"
-)
-
-# Enable CORS for Next.js frontend
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 # Global variables for model artifacts
 MODEL = None
@@ -60,9 +40,29 @@ def load_artifacts():
         METADATA = json.load(f)
     print("Loaded model artifacts successfully.")
 
-@app.on_event("startup")
-def startup_event():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     load_artifacts()
+    yield
+
+# FastAPI App Instance
+app = FastAPI(
+    title="Loan Approval Prediction API",
+    description="Production-ready REST API for ML KNN Loan Approval Prediction",
+    version="1.0.0",
+    lifespan=lifespan
+)
+
+# Enable CORS — allow_credentials must be False when allow_origins=["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 
 # Input Pydantic Schema matching the 11 required form fields
 class LoanRequest(BaseModel):
