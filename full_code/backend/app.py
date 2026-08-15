@@ -1,7 +1,6 @@
 import os
 import json
 import joblib
-from contextlib import asynccontextmanager
 
 import pandas as pd
 import numpy as np
@@ -40,17 +39,19 @@ def load_artifacts():
         METADATA = json.load(f)
     print("Loaded model artifacts successfully.")
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    load_artifacts()
-    yield
+def ensure_artifacts_loaded():
+    """Lazy-load model artifacts on first request.
+    Vercel serverless functions do not reliably run lifespan startup events,
+    so we load on demand instead."""
+    global MODEL, SCALER, ENCODERS, METADATA
+    if MODEL is None:
+        load_artifacts()
 
 # FastAPI App Instance
 app = FastAPI(
     title="Loan Approval Prediction API",
     description="Production-ready REST API for ML KNN Loan Approval Prediction",
     version="1.0.0",
-    lifespan=lifespan
 )
 
 # Enable CORS — allow_credentials must be False when allow_origins=["*"]
@@ -66,17 +67,17 @@ app.add_middleware(
 
 # Input Pydantic Schema matching the 11 required form fields
 class LoanRequest(BaseModel):
-    gender: str = Field(..., description="Gender: Male or Female", example="Male")
-    married: str = Field(..., description="Married: Yes or No", example="Yes")
-    dependents: str = Field(..., description="Dependents: 0, 1, 2, 3+", example="1")
-    education: str = Field(..., description="Education: Graduate or Not Graduate", example="Graduate")
-    self_employed: str = Field(..., description="Self Employed: Yes or No", example="No")
-    applicant_income: float = Field(..., description="Applicant Income ($)", example=5417.0, ge=0)
-    coapplicant_income: float = Field(..., description="Coapplicant Income ($)", example=4196.0, ge=0)
-    loan_amount: float = Field(..., description="Loan Amount ($ in thousands)", example=267.0, gt=0)
-    loan_amount_term: float = Field(..., description="Loan Amount Term in days/months", example=360.0, gt=0)
-    credit_history: float = Field(..., description="Credit History: 1.0 (Good) or 0.0 (Bad)", example=1.0)
-    property_area: str = Field(..., description="Property Area: Urban, Semiurban, or Rural", example="Urban")
+    gender: str = Field(..., description="Gender: Male or Female", examples=["Male"])
+    married: str = Field(..., description="Married: Yes or No", examples=["Yes"])
+    dependents: str = Field(..., description="Dependents: 0, 1, 2, 3+", examples=["1"])
+    education: str = Field(..., description="Education: Graduate or Not Graduate", examples=["Graduate"])
+    self_employed: str = Field(..., description="Self Employed: Yes or No", examples=["No"])
+    applicant_income: float = Field(..., description="Applicant Income ($)", examples=[5417.0], ge=0)
+    coapplicant_income: float = Field(..., description="Coapplicant Income ($)", examples=[4196.0], ge=0)
+    loan_amount: float = Field(..., description="Loan Amount ($ in thousands)", examples=[267.0], gt=0)
+    loan_amount_term: float = Field(..., description="Loan Amount Term in days/months", examples=[360.0], gt=0)
+    credit_history: float = Field(..., description="Credit History: 1.0 (Good) or 0.0 (Bad)", examples=[1.0])
+    property_area: str = Field(..., description="Property Area: Urban, Semiurban, or Rural", examples=["Urban"])
 
 @app.get("/")
 def read_root():
@@ -88,6 +89,7 @@ def read_root():
 
 @app.get("/health")
 def health_check():
+    ensure_artifacts_loaded()
     return {
         "status": "healthy",
         "model_loaded": MODEL is not None,
@@ -97,6 +99,7 @@ def health_check():
 
 @app.post("/predict")
 def predict_loan(req: LoanRequest) -> Dict[str, Any]:
+    ensure_artifacts_loaded()
     if MODEL is None or SCALER is None or ENCODERS is None:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
